@@ -1,0 +1,19 @@
+name: Compute Worker
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Script worker yang dijalankan (di dalam folder worker/)'
+        required: false
+        default: 'worker/hello.js'
+        type: string
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Jalankan worker
+        run: node ${{ inputs.job }}
